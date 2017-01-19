@@ -1,6 +1,7 @@
 require 'rest-client'
 require 'base64'
 require 'json'
+require 'pp'
 
 require_relative './pathSegment'
 require_relative './paths'

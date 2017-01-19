@@ -1,5 +1,6 @@
 require 'hashie'
 require_relative './pathSegment'
+require 'pp'
 
 class Restapi < PathSegment
   def segment

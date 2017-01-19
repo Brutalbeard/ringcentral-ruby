@@ -1,19 +1,20 @@
 require_relative './env'
 require_relative '../src/ringcentral'
+require 'pp'
 
 rc = RingCentral.new($app_key, $app_secret, $server)
 rc.authorize($username, $extension, $password)
 
 # GET
 response = rc.get('/restapi/v1.0/account/~/extension/~')
-puts response
+pp response
 
 # POST
 response = rc.post('/restapi/v1.0/account/~/extension/~/sms',
                    to: [{ phoneNumber: $receiver }],
                    from: { phoneNumber: $username },
                    text: 'Hello world')
-puts response
+pp response
 
 # PUT
 response = rc.get('/restapi/v1.0/account/~/extension/~/message-store',
@@ -21,7 +22,7 @@ response = rc.get('/restapi/v1.0/account/~/extension/~/message-store',
 message_id = JSON.parse(response)['records'][0]['id']
 response = rc.put("/restapi/v1.0/account/~/extension/~/message-store/#{message_id}",
                   readStatus: 'Read')
-puts response
+pp response
 
 # DELETE
 response = rc.post('/restapi/v1.0/account/~/extension/~/sms',
@@ -31,4 +32,4 @@ response = rc.post('/restapi/v1.0/account/~/extension/~/sms',
 message_id = JSON.parse(response)['id']
 response = rc.delete("/restapi/v1.0/account/~/extension/~/message-store/#{message_id}",
                      purge: false)
-puts response.code
+pp response.code
