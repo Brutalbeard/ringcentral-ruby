@@ -12,12 +12,8 @@ class PathSegment
 
   def endpoint
     result = segment
-    if @parent
-      result = File.join @parent.endpoint, result
-    end
-    if @id
-      result = File.join result, @id
-    end
+    result = File.join @parent.endpoint, result if @parent
+    result = File.join result, @id if @id
     result
   end
 
