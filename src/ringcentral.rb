@@ -23,7 +23,7 @@ class RingCentral
       grant_type: 'password'
     }
     header = {
-      Authorization: autorization_header
+      Authorization: authorization_header
     }
     response = RestClient.post(url, payload, header)
     @token = JSON.parse(response.body)
@@ -54,7 +54,7 @@ class RingCentral
   def execute(method, endpoint, payload = nil, params = nil)
     url = File.join(@server, endpoint)
     headers = {
-      Authorization: autorization_header
+      Authorization: authorization_header
     }
     if payload
       headers['Content-Type'] = 'application/json'
@@ -68,7 +68,7 @@ class RingCentral
     Base64.encode64("#{@app_key}:#{@app_secret}").gsub(/\s/, '')
   end
 
-  def autorization_header
+  def authorization_header
     if @token
       "Bearer #{@token['access_token']}"
     else
