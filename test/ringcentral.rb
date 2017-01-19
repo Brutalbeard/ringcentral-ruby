@@ -7,14 +7,14 @@ rc.authorize($username, $extension, $password)
 
 # GET
 response = rc.get('/restapi/v1.0/account/~/extension/~')
-pp response
+pp JSON.parse(response)
 
 # POST
 response = rc.post('/restapi/v1.0/account/~/extension/~/sms',
                    to: [{ phoneNumber: $receiver }],
                    from: { phoneNumber: $username },
                    text: 'Hello world')
-pp response
+pp JSON.parse(response)
 
 # PUT
 response = rc.get('/restapi/v1.0/account/~/extension/~/message-store',
@@ -22,7 +22,7 @@ response = rc.get('/restapi/v1.0/account/~/extension/~/message-store',
 message_id = JSON.parse(response)['records'][0]['id']
 response = rc.put("/restapi/v1.0/account/~/extension/~/message-store/#{message_id}",
                   readStatus: 'Read')
-pp response
+pp JSON.parse(response)
 
 # DELETE
 response = rc.post('/restapi/v1.0/account/~/extension/~/sms',
